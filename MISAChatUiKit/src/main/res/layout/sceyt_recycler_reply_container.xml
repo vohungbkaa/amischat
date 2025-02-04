@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/viewReply"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sceyt_bg_right_corners_8"
+    android:backgroundTint="#E4E6EE"
+    android:paddingStart="0dp"
+    android:paddingEnd="12dp">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="2.1dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/sceyt_color_accent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageAttachment"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="6dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:shapeAppearanceOverlay="@style/SceytShapeAppearanceOverlay.CornerSize5"
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icFile"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/sceyt_bg_circle"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:srcCompat="@drawable/sceyt_ic_file_filled" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="imageAttachment,icFile" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_medium"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        android:textColor="@color/sceyt_color_accent"
+        android:textSize="@dimen/extraSmallTextSize"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Henry Willian" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMessageBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="4dp"
+        android:ellipsize="end"
+        android:includeFontPadding="false"
+        android:maxLines="2"
+        android:textAlignment="viewStart"
+        android:textColor="@color/sceyt_color_text_primary"
+        android:textSize="@dimen/smallTextSize"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_goneMarginStart="8dp"
+        tools:text="Waitifor." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

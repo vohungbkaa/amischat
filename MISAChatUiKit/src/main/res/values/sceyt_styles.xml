@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SceytAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/sceyt_color_primary</item>
+        <item name="colorPrimaryDark">@color/sceyt_color_primary_dark</item>
+        <item name="colorAccent">@color/sceyt_color_accent</item>
+        <item name="colorSecondary">@color/sceyt_color_primary</item>
+        <item name="colorControlNormal">@color/sceyt_color_primary</item>
+        <item name="bottomSheetDialogTheme">@style/SceytAppBottomSheetDialogTheme</item>
+        <item name="windowActionModeOverlay">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@color/sceyt_color_background</item>
+        <item name="android:statusBarColor">@color/sceyt_color_status_bar</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DefaultFontTheme" parent="SceytAppTheme">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style xmlns:tools="http://schemas.android.com/tools" name="SceytPreviewThemeDark" parent="SceytAppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges
+        </item>
+        <item name="android:navigationBarColor">@color/sceyt_media_primary_color</item>
+    </style>
+
+    <style name="SceytAppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/SceytAppModalStyle</item>
+    </style>
+
+    <style name="SceytAppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/sceyt_bg_bottom_sheet_dialog</item>
+    </style>
+
+    <style name="SceytMenuTitleAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/sceyt_color_text_primary</item>
+    </style>
+
+    <style name="SceytShapeAppearanceOverlayRounded" parent="">
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="SceytShapeAppearanceOverlay.CornerSize17" parent="@style/SceytShapeAppearanceOverlayRounded">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="SceytShapeAppearanceOverlay.CornerSize5" parent="@style/SceytShapeAppearanceOverlayRounded">
+        <item name="cornerSize">5dp</item>
+    </style>
+
+    <style name="SceytShapeAppearanceOverlay.CornerSize8" parent="@style/SceytShapeAppearanceOverlayRounded">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="SceytShapeAppearanceOverlay.CornerTop8Bottom4" parent="@style/SceytShapeAppearanceOverlayRounded">
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeBottomLeft">4dp</item>
+        <item name="cornerSizeBottomRight">4dp</item>
+    </style>
+
+    <style name="SceytPopupMenuStyle" parent="@style/Theme.MaterialComponents">
+        <item name="popupMenuBackground">@drawable/sceyt_bg_popup</item>
+        <item name="android:textColor">@color/sceyt_color_text_primary</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:tint">@color/sceyt_color_accent</item>
+        <item name="android:scrollbarSize">0dp</item>
+        <item name="android:layoutAnimation">@anim/sceyt_layout_animation_fall_down</item>
+    </style>
+
+    <style name="SceytDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="SceytDialogNoTitle95" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">95%</item>
+        <item name="android:windowMinWidthMinor">95%</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="SceytDialogWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/sceyt_anim_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/sceyt_anim_dialog_exit</item>
+    </style>
+
+    <style name="SceytDialogFromBottomAnimation">
+        <item name="android:windowEnterAnimation">@anim/sceyt_anim_slide_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/sceyt_anim_slide_to_bottom</item>
+    </style>
+
+
+    <style name="SceytBottomNavigationTextStyle" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="SceytSwitchStyle">
+        <item name="android:colorForeground">@color/sceyt_color_text_secondary</item>
+    </style>
+
+    <style name="SceytProgressBarWhite" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/sceyt_color_on_primary</item>
+    </style>
+
+    <style name="SceytEditTextTheme">
+        <item name="colorControlNormal">@color/sceyt_color_border</item>
+        <item name="colorControlActivated">@color/sceyt_color_accent</item>
+        <item name="colorControlHighlight">@color/sceyt_color_accent</item>
+    </style>
+
+    <style name="SceytTabLayout" parent="Theme.AppCompat">
+        <item name="tabTextAppearance">@style/SceytTabTextAppearance</item>
+        <item name="tabIndicatorFullWidth">true</item>
+        <item name="tabTextColor">@color/sceyt_color_text_primary</item>
+        <item name="tabIndicatorColor">@color/sceyt_color_accent</item>
+    </style>
+
+
+    <style name="SceytTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SceytReactionPopupAnimationNormal">
+        <item name="android:windowEnterAnimation">@anim/sceyt_anim_show_window</item>
+        <item name="android:windowExitAnimation">@anim/sceyt_anim_disappear_alpha</item>
+    </style>
+
+    <style name="SceytReactionPopupAnimationReversed">
+        <item name="android:windowEnterAnimation">@anim/sceyt_anim_show_window_reversed</item>
+        <item name="android:windowExitAnimation">@anim/sceyt_anim_disappear_alpha</item>
+    </style>
+
+</resources>

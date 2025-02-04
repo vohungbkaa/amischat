@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sceyt_color_primary_dark">#19191B</color>
+    <color name="sceyt_color_primary">#232324</color>
+    <color name="sceyt_color_accent">#6B72FF</color>
+    <color name="sceyt_color_status_bar">#19191B</color>
+
+    <!--Surface-->
+    <color name="sceyt_color_surface_1">#232324</color>
+    <color name="sceyt_color_surface_2">#303032</color>
+    <color name="sceyt_color_surface_3">#3B3B3D</color>
+
+    <!--Interface-->
+    <color name="sceyt_color_background">#19191B</color>
+    <color name="sceyt_color_background_secondary">#19191B</color>
+    <color name="sceyt_color_background_sections">#232324</color>
+    <color name="sceyt_color_overlay_background">#66000000</color>
+    <color name="sceyt_color_border">#303032</color>
+    <color name="sceyt_color_icon_secondary">#969A9F</color>
+    <color name="sceyt_color_icon_inactive">#64666A</color>
+
+    <!--Text-->
+    <color name="sceyt_color_text_primary">#E1E3E6</color>
+    <color name="sceyt_color_text_secondary">#969A9F</color>
+    <color name="sceyt_color_text_footnote">#76787A</color>
+
+
+
+    // Message bubble colors
+    <color name="sceyt_color_bg_out_message">#212239</color>
+    <color name="sceyt_color_bg_inc_message">#232324</color>
+    <color name="sceyt_color_bg_out_link_preview">#2E3052</color>
+    <color name="sceyt_color_bg_inc_link_preview">#303032</color>
+    <color name="sceyt_switch_track_unchecked_color">#464749</color>
+
+</resources>

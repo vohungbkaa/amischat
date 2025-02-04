@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">@color/sceyt_color_accent</color>
+
+    //Themed colors
+    <color name="sceyt_color_primary_dark">#FFFFFF</color>
+    <color name="sceyt_color_status_bar">#33000000</color>
+    <color name="sceyt_color_primary">#FFFFFF</color>
+    <color name="sceyt_color_accent">#5159F6</color>
+
+    <!--Surface-->
+    <color name="sceyt_color_surface_1">#F1F2F6</color>
+    <color name="sceyt_color_surface_2">#E4E6EE</color>
+    <color name="sceyt_color_surface_3">#A0A1B0</color>
+
+    <!--Interface-->
+    <color name="sceyt_color_background">#FFFFFF</color>
+    <color name="sceyt_color_background_secondary">#F1F2F6</color>
+    <color name="sceyt_color_background_sections">#FFFFFF</color>
+    <color name="sceyt_color_border">#E4E6EE</color>
+    <color name="sceyt_color_icon_secondary">#A0A1B0</color>
+    <color name="sceyt_color_icon_secondary2">#EDECEC</color>
+    <color name="sceyt_color_icon_inactive">#C6C7D0</color>
+    <color name="sceyt_color_overlay_background">#4D000000</color>
+    <color name="sceyt_color_overlay_background_2">#4D000000</color>
+
+    <!--Text-->
+    <color name="sceyt_color_text_primary">#111539</color>
+    <color name="sceyt_color_text_secondary">#707388</color>
+    <color name="sceyt_color_text_footnote">#A0A1B0</color>
+
+    <!--State-->
+    <color name="sceyt_color_warning">#FA4C56</color>
+    <color name="sceyt_color_success">#24C383</color>
+    <color name="sceyt_color_attention">#FBB019</color>
+
+
+    <color name="sceyt_color_bg_out_message">#E3E7FF</color>
+    <color name="sceyt_color_bg_inc_message">#F1F2F6</color>
+    <color name="sceyt_color_bg_out_link_preview">#D1D8FF</color>
+    <color name="sceyt_color_bg_inc_link_preview">#E4E6EE</color>
+
+
+    // Not themed colors
+    <color name="sceyt_color_accent_2">#FBB019</color>
+    <color name="sceyt_color_accent_3">#B463E7</color>
+    <color name="sceyt_color_accent_4">#63AFFF</color>
+    <color name="sceyt_color_accent_5">#67D292</color>
+    <color name="sceyt_color_on_primary">#FFFFFF</color>
+
+    <color name="sceyt_color_black">#000000</color>
+
+    <color name="sceyt_color_green">#24C383</color>
+    <color name="sceyt_color_red">#FA4C56</color>
+    <color name="sceyt_auto_link_color">#438CED</color>
+    <color name="sceyt_media_primary_color">#CC000000</color>
+    <color name="sceyt_switch_thumb_unchecked_color">#ECECEC</color>
+    <color name="sceyt_switch_track_unchecked_color">#D4D5DC</color>
+
+</resources>

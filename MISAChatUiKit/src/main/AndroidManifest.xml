@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <application android:requestLegacyExternalStorage="true">
+
+        <activity
+            android:name=".presentation.components.channel.messages.ChannelActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/DefaultFontTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.components.channel_info.ChannelInfoActivity"
+            android:exported="false"
+            android:theme="@style/DefaultFontTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.components.media.MediaPreviewActivity"
+            android:theme="@style/SceytPreviewThemeDark" />
+        <activity
+            android:name=".presentation.components.forward.ForwardActivity"
+            android:theme="@style/DefaultFontTheme" />
+        <activity
+            android:name=".presentation.components.share.ShareActivity"
+            android:theme="@style/DefaultFontTheme" />
+        <activity
+            android:name=".presentation.components.channel_info.preview.ImagePreviewActivity"
+            android:theme="@style/DefaultFontTheme" />
+        <activity
+            android:name=".presentation.components.role.ChangeRoleActivity"
+            android:exported="false"
+            android:theme="@style/DefaultFontTheme" />
+        <activity
+            android:name=".presentation.components.message_info.MessageInfoActivity"
+            android:exported="false"
+            android:theme="@style/DefaultFontTheme" />
+        <activity
+            android:name=".presentation.components.select_users.SelectUsersActivity"
+            android:exported="false"
+            android:theme="@style/DefaultFontTheme" />
+        <activity
+            android:name=".presentation.components.startchat.StartChatActivity"
+            android:exported="false"
+            android:theme="@style/DefaultFontTheme" />
+        <activity
+            android:name=".presentation.components.create_chat.create_channel.CreateChannelActivity"
+            android:exported="false"
+            android:theme="@style/DefaultFontTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.components.create_chat.create_group.CreateGroupActivity"
+            android:exported="false"
+            android:theme="@style/DefaultFontTheme" />
+        <activity android:name="com.yalantis.ucrop.UCropActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <service
+            android:name=".services.SceytFirebaseMessageReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:foregroundServiceType="dataSync"
+            tools:node="merge" />
+
+        <receiver
+            android:name=".notifications.receivers.NotificationActionReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="sceyt_action_mark_us_read" />
+                <action android:name="sceyt_action_reply" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

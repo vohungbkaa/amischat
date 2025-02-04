@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="0dp"
+    android:paddingEnd="12dp">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/selectView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:alpha=".3"
+        android:clickable="false"
+        android:visibility="gone" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/sceyt_bg_corners_18"
+        tools:backgroundTint="#E3E7FF">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/messageBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="8dp"
+            android:text="@string/sceyt_message_was_deleted"
+            android:textColor="@color/sceyt_color_text_secondary"
+            android:textSize="@dimen/mediumTextSize"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutDetails"
+            app:layout_constraintEnd_toStartOf="@+id/messageDate"
+            app:layout_constraintStart_toStartOf="@+id/layoutDetails"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.sceyt.chatuikit.presentation.custom_views.DecoratedTextView
+            android:id="@+id/messageDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="5dp"
+            android:includeFontPadding="false"
+            app:layout_constraintBottom_toBottomOf="@id/layoutDetails"
+            app:layout_constraintEnd_toEndOf="@id/layoutDetails"
+            app:sceytUiDecoratedTextColor="@color/sceyt_color_text_secondary"
+            app:sceytUiDecoratedTextSize="@dimen/tinyTextSize"
+            app:sceytUiDecoratedTextTrailingIconPadding="5dp"
+            app:sceytUiDecoratedTextTrailingIconSize="15.5dp"
+            tools:sceytUiDecoratedTextTitle="00:37" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

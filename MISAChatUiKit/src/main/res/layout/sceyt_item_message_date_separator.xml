@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/messageDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/sceyt_bg_corners_20"
+        android:backgroundTint="@color/sceyt_color_overlay_background"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="3dp"
+        android:textColor="@color/sceyt_color_on_primary"
+        android:textSize="@dimen/extraSmallTextSize"
+        tools:text="Feb 24" />
+
+</FrameLayout>

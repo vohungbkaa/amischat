@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/fileImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/sceyt_color_background_secondary"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/SceytShapeAppearanceOverlay.CornerSize17"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <com.sceyt.chatuikit.presentation.custom_views.CircularProgressView
+        android:id="@+id/loadProgress"
+        android:layout_width="@dimen/messageProgressSize"
+        android:layout_height="@dimen/messageProgressSize"
+        android:padding="1dp"
+        android:visibility="gone"
+        app:sceytUiProgressBackgroundColor="@color/sceyt_color_overlay_background_2"
+        app:sceytUiProgressIconSizeInPercent="65"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:sceytUiProgressMinProgress="2"
+        app:sceytUiProgressColor="@color/sceyt_color_on_primary"
+        app:sceytUiProgressTrackColor="@android:color/transparent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

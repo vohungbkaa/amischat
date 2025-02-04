@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/sceyt_edit_message"
+        android:icon="@drawable/sceyt_ic_edit_stroked"
+        android:title="@string/sceyt_edit"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/sceyt_react"
+        android:icon="@drawable/sceyt_ic_react"
+        android:title="@string/sceyt_react"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/sceyt_reply"
+        android:icon="@drawable/sceyt_ic_reply"
+        android:title="@string/sceyt_reply"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/sceyt_forward"
+        android:icon="@drawable/sceyt_ic_forward"
+        android:title="@string/sceyt_forward"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/sceyt_reply_in_thread"
+        android:icon="@drawable/sceyt_ic_reply_in_thread"
+        android:title="@string/sceyt_reply_in_thread"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/sceyt_copy_message"
+        android:icon="@drawable/sceyt_ic_copy"
+        android:title="@string/sceyt_copy"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/sceyt_delete_message"
+        android:icon="@drawable/sceyt_ic_trash"
+        android:title="@string/sceyt_delete"
+        app:showAsAction="ifRoom" />
+</menu>
