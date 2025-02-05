@@ -109,24 +109,12 @@ class ChannelsRepositoryImpl(private val channelServices: ChannelServices) : MIS
         config: ChannelListConfig,
         params: SearchChannelParams,
     ): SceytResponse<List<SceytChannel>> {
+
+        val response = channelServices.getChannels()
+        val channels = response.data
+
         return suspendCancellableCoroutine { continuation ->
-            val channelListQuery =
-                createChannelListQuery(config, query, params).also { channelsQuery = it }
-
-            channelListQuery.loadNext(object : ChannelsCallback {
-                override fun onResult(channels: MutableList<Channel>?) {
-                    if (channels.isNullOrEmpty())
-                        continuation.safeResume(SceytResponse.Success(emptyList()))
-                    else {
-                        continuation.safeResume(SceytResponse.Success(channels.map { it.toSceytUiChannel() }))
-                    }
-                }
-
-                override fun onError(e: SceytException?) {
-                    continuation.safeResume(SceytResponse.Error(e))
-                    SceytLog.e(TAG, "getChannels error: ${e?.message}, code: ${e?.code}")
-                }
-            })
+            continuation.safeResume(SceytResponse.Success(channels?.map { it.toSceytUiChannel() }))
         }
     }
 

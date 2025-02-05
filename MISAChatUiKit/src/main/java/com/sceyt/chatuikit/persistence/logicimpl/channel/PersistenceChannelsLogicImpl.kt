@@ -310,10 +310,6 @@ internal class PersistenceChannelsLogicImpl(
                 channelsRepository.getChannels(searchQuery, config, SearchChannelParams.default)
             else channelsRepository.loadMoreChannels()
 
-            /*val response = if (offset == 0)
-                channelsRepository.getChannels(searchQuery, config, SearchChannelParams.default)
-            else channelsRepository.loadMoreChannels()
-
             if (response is SceytResponse.Success) {
                 val channels = response.data ?: arrayListOf()
 
@@ -328,7 +324,7 @@ internal class PersistenceChannelsLogicImpl(
                 ChatReactionMessagesCache.getNeededMessages(response.data ?: arrayListOf())
 
                 messageLogic.onSyncedChannels(channels)
-            }*/
+            }
 
             channel.close()
             awaitClose()

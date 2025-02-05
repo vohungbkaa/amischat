@@ -1,13 +1,13 @@
 package com.sceyt.chatuikit.data.apis
 
 import com.sceyt.chatuikit.data.models.MISAChatResponse
+import com.sceyt.chatuikit.data.models.channels.SceytChannel
+import com.sceyt.chatuikit.data.models.channels.TestChannel
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 
 interface ChannelServices {
-
-    @GET("users")
-    suspend fun getChannels(): MISAChatResponse<Any>
 
     @GET("chat/api/business/v1/conversations/me")
     @Headers(
@@ -25,5 +25,5 @@ interface ChannelServices {
         "sec-ch-ua-mobile: ?0",
         "sec-ch-ua-platform: \"macOS\""
     )
-    fun getConversations(): MISAChatResponse<Any>
+    suspend fun getChannels(): MISAChatResponse<List<TestChannel>>
 }

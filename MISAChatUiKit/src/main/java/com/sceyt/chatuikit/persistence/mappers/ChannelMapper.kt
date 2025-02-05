@@ -1,13 +1,16 @@
 package com.sceyt.chatuikit.persistence.mappers
 
 import com.sceyt.chat.models.channel.Channel
+import com.sceyt.chatuikit.data.models.channels.ChannelTypeEnum
 import com.sceyt.chatuikit.data.models.channels.CreateChannelData
 import com.sceyt.chatuikit.data.models.channels.RoleTypeEnum
 import com.sceyt.chatuikit.data.models.channels.SceytChannel
+import com.sceyt.chatuikit.data.models.channels.TestChannel
 import com.sceyt.chatuikit.data.models.messages.SceytUser
 import com.sceyt.chatuikit.data.toSceytMember
 import com.sceyt.chatuikit.persistence.database.entity.channel.ChannelDb
 import com.sceyt.chatuikit.persistence.database.entity.channel.ChannelEntity
+import java.util.Date
 
 fun SceytChannel.toChannelEntity() = ChannelEntity(
     id = id,
@@ -161,3 +164,40 @@ fun createPendingChannel(
     pending = true,
     draftMessage = null
 )
+
+fun TestChannel.toSceytUiChannel(): SceytChannel {
+    return SceytChannel(
+        id = Date().time,
+        parentChannelId = null,
+        uri = null,
+        type = ChannelTypeEnum.Group.name,
+        subject = Name,
+        avatarUrl = "",
+        metadata = null,
+        createdAt = System.currentTimeMillis(),
+        updatedAt = 0,
+        messagesClearedAt = 0,
+        memberCount = 1,
+        createdBy = null,
+        userRole = RoleTypeEnum.Owner.value,
+        unread = false,
+        newMessageCount = 0,
+        newMentionCount = 0,
+        newReactedMessageCount = 0,
+        hidden = false,
+        archived = false,
+        muted = false,
+        mutedTill = 0,
+        pinnedAt = null,
+        lastReceivedMessageId = 0,
+        lastDisplayedMessageId = 0,
+        messageRetentionPeriod = 0,
+        lastMessage = null,
+        messages = null,
+        members = null,
+        newReactions = null,
+        pendingReactions = null,
+        pending = true,
+        draftMessage = null
+    )
+}
