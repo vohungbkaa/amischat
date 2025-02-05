@@ -72,7 +72,7 @@ import com.sceyt.chatuikit.persistence.mappers.toSceytUiChannel
 import com.sceyt.chatuikit.persistence.mappers.toSceytUser
 import com.sceyt.chatuikit.persistence.mappers.toUserDb
 import com.sceyt.chatuikit.persistence.mappers.toUserReactionsEntity
-import com.sceyt.chatuikit.persistence.repositories.ChannelsRepository
+import com.sceyt.chatuikit.persistence.repositories.misa.MISAChannelsRepository
 import com.sceyt.chatuikit.persistence.workers.UploadAndSendAttachmentWorkManager
 import com.sceyt.chatuikit.persistence.workers.SendForwardMessagesWorkManager
 import com.sceyt.chatuikit.presentation.components.channel.input.format.BodyStyleRange
@@ -90,7 +90,7 @@ import org.koin.core.component.inject
 
 internal class PersistenceChannelsLogicImpl(
         private val context: Context,
-        private val channelsRepository: ChannelsRepository,
+        private val channelsRepository: MISAChannelsRepository,
         private val channelDao: ChannelDao,
         private val usersDao: UserDao,
         private val messageDao: MessageDao,
@@ -305,9 +305,12 @@ internal class PersistenceChannelsLogicImpl(
             channelsCache.addAll(config, dbChannels, false)
             ChatReactionMessagesCache.getNeededMessages(dbChannels)
 
-            awaitToConnectSceyt()
-
+            //awaitToConnectSceyt()
             val response = if (offset == 0)
+                channelsRepository.getChannels(searchQuery, config, SearchChannelParams.default)
+            else channelsRepository.loadMoreChannels()
+
+            /*val response = if (offset == 0)
                 channelsRepository.getChannels(searchQuery, config, SearchChannelParams.default)
             else channelsRepository.loadMoreChannels()
 
@@ -325,7 +328,7 @@ internal class PersistenceChannelsLogicImpl(
                 ChatReactionMessagesCache.getNeededMessages(response.data ?: arrayListOf())
 
                 messageLogic.onSyncedChannels(channels)
-            }
+            }*/
 
             channel.close()
             awaitClose()

@@ -25,13 +25,13 @@ import com.sceyt.chatuikit.persistence.mappers.toChannelEntity
 import com.sceyt.chatuikit.persistence.mappers.toMessageDb
 import com.sceyt.chatuikit.persistence.mappers.toSceytMember
 import com.sceyt.chatuikit.persistence.mappers.toUserDb
-import com.sceyt.chatuikit.persistence.repositories.ChannelsRepository
+import com.sceyt.chatuikit.persistence.repositories.misa.MISAChannelsRepository
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 internal class PersistenceMembersLogicImpl(
-        private val channelsRepository: ChannelsRepository,
+        private val channelsRepository: MISAChannelsRepository,
         private val channelDao: ChannelDao,
         private val rangeDao: LoadRangeDao,
         private val messageDao: MessageDao,

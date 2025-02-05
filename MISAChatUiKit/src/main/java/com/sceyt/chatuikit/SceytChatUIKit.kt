@@ -20,12 +20,14 @@ import com.sceyt.chatuikit.logger.SceytLog
 import com.sceyt.chatuikit.logger.SceytLogLevel
 import com.sceyt.chatuikit.logger.SceytLogger
 import com.sceyt.chatuikit.notifications.SceytNotifications
+import com.sceyt.chatuikit.persistence.di.apiModule
 import com.sceyt.chatuikit.persistence.di.appModules
 import com.sceyt.chatuikit.persistence.di.cacheModule
 import com.sceyt.chatuikit.persistence.di.coroutineModule
 import com.sceyt.chatuikit.persistence.di.databaseModule
 import com.sceyt.chatuikit.persistence.di.interactorModule
 import com.sceyt.chatuikit.persistence.di.logicModule
+import com.sceyt.chatuikit.persistence.di.retrofitModule
 import com.sceyt.chatuikit.persistence.di.useCaseModule
 import com.sceyt.chatuikit.persistence.lazyVar
 import com.sceyt.chatuikit.persistence.mappers.toSceytUser
@@ -153,6 +155,8 @@ object SceytChatUIKit : SceytKoinComponent {
     private fun KoinApplication.init(enableDatabase: Boolean) {
         androidContext(appContext)
         modules(arrayListOf(
+            retrofitModule,
+            apiModule,
             appModules,
             databaseModule(enableDatabase),
             interactorModule,

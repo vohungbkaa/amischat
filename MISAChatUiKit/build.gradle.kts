@@ -77,6 +77,9 @@ dependencies {
     api(libs.emoji.google)
     api(libs.libphonenumber)
     api(libs.ucrop)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
     // Overriding the version of the library
     implementation(libs.gson)

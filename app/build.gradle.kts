@@ -38,7 +38,9 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-
+        dataBinding = true
+        viewBinding = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -61,4 +63,7 @@ dependencies {
     implementation(libs.sdp.android)
     implementation(libs.ssp.android)
     implementation(libs.koin.android)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }

@@ -19,6 +19,7 @@ import com.sceyt.chat.sceyt_callbacks.UrlCallback
 import com.sceyt.chatuikit.SceytChatUIKit
 import com.sceyt.chatuikit.config.ChannelListConfig
 import com.sceyt.chatuikit.config.SearchChannelParams
+import com.sceyt.chatuikit.data.apis.ChannelServices
 import com.sceyt.chatuikit.data.models.SceytResponse
 import com.sceyt.chatuikit.data.models.channels.CreateChannelData
 import com.sceyt.chatuikit.data.models.channels.EditChannelData
@@ -31,17 +32,21 @@ import com.sceyt.chatuikit.extensions.TAG
 import com.sceyt.chatuikit.logger.SceytLog
 import com.sceyt.chatuikit.persistence.extensions.safeResume
 import com.sceyt.chatuikit.persistence.mappers.toSceytUiChannel
-import com.sceyt.chatuikit.persistence.repositories.ChannelsRepository
+import com.sceyt.chatuikit.persistence.repositories.misa.MISAChannelsRepository
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 
-class ChannelsRepositoryImpl : ChannelsRepository {
+class ChannelsRepositoryImpl(private val channelServices: ChannelServices) : MISAChannelsRepository {
 
     private lateinit var channelsQuery: ChannelListQuery
 
-    private fun createMemberListQuery(channelId: Long, offset: Int, role: String?): MemberListQuery {
+    private fun createMemberListQuery(
+        channelId: Long,
+        offset: Int,
+        role: String?
+    ): MemberListQuery {
         return MemberListQuery.Builder(channelId)
             .limit(SceytChatUIKit.config.queryLimits.channelMemberListQueryLimit)
             .orderType(MemberListQuery.QueryOrderType.ListQueryOrderAscending)
@@ -56,16 +61,17 @@ class ChannelsRepositoryImpl : ChannelsRepository {
 
     override suspend fun getChannel(id: Long): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
-            ChannelOperator.getChannelRequest(id, channelQueryParam).execute(object : ChannelCallback {
-                override fun onResult(channel: Channel) {
-                    continuation.safeResume(SceytResponse.Success(channel.toSceytUiChannel()))
-                }
+            ChannelOperator.getChannelRequest(id, channelQueryParam)
+                .execute(object : ChannelCallback {
+                    override fun onResult(channel: Channel) {
+                        continuation.safeResume(SceytResponse.Success(channel.toSceytUiChannel()))
+                    }
 
-                override fun onError(e: SceytException?) {
-                    continuation.safeResume(SceytResponse.Error(e))
-                    SceytLog.e(TAG, "getChannel error: ${e?.message}, code: ${e?.code}")
-                }
-            })
+                    override fun onError(e: SceytException?) {
+                        continuation.safeResume(SceytResponse.Error(e))
+                        SceytLog.e(TAG, "getChannel error: ${e?.message}, code: ${e?.code}")
+                    }
+                })
         }
     }
 
@@ -80,24 +86,32 @@ class ChannelsRepositoryImpl : ChannelsRepository {
 
             query.loadNext(object : ChannelsCallback {
                 override fun onResult(channels: MutableList<Channel>?) {
-                    continuation.safeResume(SceytResponse.Success(channels?.firstOrNull()?.toSceytUiChannel()))
+                    continuation.safeResume(
+                        SceytResponse.Success(
+                            channels?.firstOrNull()?.toSceytUiChannel()
+                        )
+                    )
                 }
 
                 override fun onError(e: SceytException?) {
                     continuation.safeResume(SceytResponse.Error(e))
-                    SceytLog.e(TAG, "getChannelFromServerByUrl error: ${e?.message}, code: ${e?.code}")
+                    SceytLog.e(
+                        TAG,
+                        "getChannelFromServerByUrl error: ${e?.message}, code: ${e?.code}"
+                    )
                 }
             })
         }
     }
 
     override suspend fun getChannels(
-            query: String,
-            config: ChannelListConfig,
-            params: SearchChannelParams,
+        query: String,
+        config: ChannelListConfig,
+        params: SearchChannelParams,
     ): SceytResponse<List<SceytChannel>> {
         return suspendCancellableCoroutine { continuation ->
-            val channelListQuery = createChannelListQuery(config, query, params).also { channelsQuery = it }
+            val channelListQuery =
+                createChannelListQuery(config, query, params).also { channelsQuery = it }
 
             channelListQuery.loadNext(object : ChannelsCallback {
                 override fun onResult(channels: MutableList<Channel>?) {
@@ -181,7 +195,10 @@ class ChannelsRepositoryImpl : ChannelsRepository {
                 }
 
                 is SceytResponse.Error -> {
-                    SceytLog.e(TAG, "uploadAvatar error: ${uploadResult.message}, code: ${uploadResult.code}")
+                    SceytLog.e(
+                        TAG,
+                        "uploadAvatar error: ${uploadResult.message}, code: ${uploadResult.code}"
+                    )
                     return SceytResponse.Error(uploadResult.exception)
                 }
             }
@@ -258,16 +275,17 @@ class ChannelsRepositoryImpl : ChannelsRepository {
 
     override suspend fun clearHistory(channelId: Long, forEveryone: Boolean): SceytResponse<Long> {
         return suspendCancellableCoroutine { continuation ->
-            ChannelOperator.build(channelId).deleteAllChannelMessages(forEveryone, object : ActionCallback {
-                override fun onSuccess() {
-                    continuation.safeResume(SceytResponse.Success(channelId))
-                }
+            ChannelOperator.build(channelId)
+                .deleteAllChannelMessages(forEveryone, object : ActionCallback {
+                    override fun onSuccess() {
+                        continuation.safeResume(SceytResponse.Success(channelId))
+                    }
 
-                override fun onError(e: SceytException?) {
-                    continuation.safeResume(SceytResponse.Error(e))
-                    SceytLog.e(TAG, "clearHistory error: ${e?.message}, code: ${e?.code}")
-                }
-            })
+                    override fun onError(e: SceytException?) {
+                        continuation.safeResume(SceytResponse.Error(e))
+                        SceytLog.e(TAG, "clearHistory error: ${e?.message}, code: ${e?.code}")
+                    }
+                })
         }
     }
 
@@ -367,7 +385,10 @@ class ChannelsRepositoryImpl : ChannelsRepository {
         }
     }
 
-    override suspend fun editChannel(channelId: Long, data: EditChannelData): SceytResponse<SceytChannel> {
+    override suspend fun editChannel(
+        channelId: Long,
+        data: EditChannelData
+    ): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
             val channelCallback = object : ChannelCallback {
                 override fun onResult(channel: Channel) {
@@ -380,13 +401,19 @@ class ChannelsRepositoryImpl : ChannelsRepository {
                 }
             }
 
-            ChannelOperator.build(channelId).updateChannel(data.channelUri ?: "",
+            ChannelOperator.build(channelId).updateChannel(
+                data.channelUri ?: "",
                 data.newSubject ?: "", data.metadata ?: "",
-                data.avatarUrl ?: "", channelCallback)
+                data.avatarUrl ?: "", channelCallback
+            )
         }
     }
 
-    override suspend fun loadChannelMembers(channelId: Long, offset: Int, role: String?): SceytResponse<List<SceytMember>> {
+    override suspend fun loadChannelMembers(
+        channelId: Long,
+        offset: Int,
+        role: String?
+    ): SceytResponse<List<SceytMember>> {
         return suspendCancellableCoroutine { continuation ->
             createMemberListQuery(channelId, offset, role)
                 .loadNext(object : MembersCallback {
@@ -405,7 +432,10 @@ class ChannelsRepositoryImpl : ChannelsRepository {
         }
     }
 
-    override suspend fun addMembersToChannel(channelId: Long, members: List<Member>): SceytResponse<SceytChannel> {
+    override suspend fun addMembersToChannel(
+        channelId: Long,
+        members: List<Member>
+    ): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
             ChannelOperator.build(channelId).addMembers(members, object : ChannelCallback {
                 override fun onResult(channel: Channel) {
@@ -420,22 +450,32 @@ class ChannelsRepositoryImpl : ChannelsRepository {
         }
     }
 
-    override suspend fun changeChannelMemberRole(channelId: Long, vararg member: Member): SceytResponse<SceytChannel> {
+    override suspend fun changeChannelMemberRole(
+        channelId: Long,
+        vararg member: Member
+    ): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
-            ChannelOperator.build(channelId).changeMembersRole(member.toList(), object : ChannelCallback {
-                override fun onResult(channel: Channel) {
-                    continuation.safeResume(SceytResponse.Success(channel.toSceytUiChannel()))
-                }
+            ChannelOperator.build(channelId)
+                .changeMembersRole(member.toList(), object : ChannelCallback {
+                    override fun onResult(channel: Channel) {
+                        continuation.safeResume(SceytResponse.Success(channel.toSceytUiChannel()))
+                    }
 
-                override fun onError(e: SceytException?) {
-                    continuation.safeResume(SceytResponse.Error(e))
-                    SceytLog.e(TAG, "changeChannelMemberRole error: ${e?.message}, code: ${e?.code}")
-                }
-            })
+                    override fun onError(e: SceytException?) {
+                        continuation.safeResume(SceytResponse.Error(e))
+                        SceytLog.e(
+                            TAG,
+                            "changeChannelMemberRole error: ${e?.message}, code: ${e?.code}"
+                        )
+                    }
+                })
         }
     }
 
-    override suspend fun changeChannelOwner(channelId: Long, userId: String): SceytResponse<SceytChannel> {
+    override suspend fun changeChannelOwner(
+        channelId: Long,
+        userId: String
+    ): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
             ChannelOperator.build(channelId).changeOwner(userId, object : ChannelCallback {
                 override fun onResult(channel: Channel) {
@@ -450,7 +490,10 @@ class ChannelsRepositoryImpl : ChannelsRepository {
         }
     }
 
-    override suspend fun deleteMember(channelId: Long, userId: String): SceytResponse<SceytChannel> {
+    override suspend fun deleteMember(
+        channelId: Long,
+        userId: String
+    ): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
             ChannelOperator.build(channelId).kickMember(userId, object : ChannelCallback {
                 override fun onResult(channel: Channel) {
@@ -465,7 +508,10 @@ class ChannelsRepositoryImpl : ChannelsRepository {
         }
     }
 
-    override suspend fun blockAndDeleteMember(channelId: Long, userId: String): SceytResponse<SceytChannel> {
+    override suspend fun blockAndDeleteMember(
+        channelId: Long,
+        userId: String
+    ): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
             ChannelOperator.build(channelId).blockMember(userId, object : ChannelCallback {
                 override fun onResult(channel: Channel?) {
@@ -495,7 +541,10 @@ class ChannelsRepositoryImpl : ChannelsRepository {
         }
     }
 
-    override suspend fun muteChannel(channelId: Long, muteUntil: Long): SceytResponse<SceytChannel> {
+    override suspend fun muteChannel(
+        channelId: Long,
+        muteUntil: Long
+    ): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
             ChannelOperator.build(channelId).mute(muteUntil, object : ChannelCallback {
                 override fun onResult(channel: Channel?) {
@@ -510,33 +559,38 @@ class ChannelsRepositoryImpl : ChannelsRepository {
         }
     }
 
-    override suspend fun enableAutoDelete(channelId: Long, period: Long): SceytResponse<SceytChannel> {
+    override suspend fun enableAutoDelete(
+        channelId: Long,
+        period: Long
+    ): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
-            ChannelOperator.build(channelId).setMessageRetentionPeriod(period, object : ChannelCallback {
-                override fun onResult(channel: Channel?) {
-                    continuation.safeResume(SceytResponse.Success(channel?.toSceytUiChannel()))
-                }
+            ChannelOperator.build(channelId)
+                .setMessageRetentionPeriod(period, object : ChannelCallback {
+                    override fun onResult(channel: Channel?) {
+                        continuation.safeResume(SceytResponse.Success(channel?.toSceytUiChannel()))
+                    }
 
-                override fun onError(e: SceytException?) {
-                    continuation.safeResume(SceytResponse.Error(e))
-                    SceytLog.e(TAG, "enableAutoDelete error: ${e?.message}, code: ${e?.code}")
-                }
-            })
+                    override fun onError(e: SceytException?) {
+                        continuation.safeResume(SceytResponse.Error(e))
+                        SceytLog.e(TAG, "enableAutoDelete error: ${e?.message}, code: ${e?.code}")
+                    }
+                })
         }
     }
 
     override suspend fun disableAutoDelete(channelId: Long): SceytResponse<SceytChannel> {
         return suspendCancellableCoroutine { continuation ->
-            ChannelOperator.build(channelId).setMessageRetentionPeriod(0L, object : ChannelCallback {
-                override fun onResult(channel: Channel?) {
-                    continuation.safeResume(SceytResponse.Success(channel?.toSceytUiChannel()))
-                }
+            ChannelOperator.build(channelId)
+                .setMessageRetentionPeriod(0L, object : ChannelCallback {
+                    override fun onResult(channel: Channel?) {
+                        continuation.safeResume(SceytResponse.Success(channel?.toSceytUiChannel()))
+                    }
 
-                override fun onError(e: SceytException?) {
-                    continuation.safeResume(SceytResponse.Error(e))
-                    SceytLog.e(TAG, "disableAutoDelete error: ${e?.message}, code: ${e?.code}")
-                }
-            })
+                    override fun onError(e: SceytException?) {
+                        continuation.safeResume(SceytResponse.Error(e))
+                        SceytLog.e(TAG, "disableAutoDelete error: ${e?.message}, code: ${e?.code}")
+                    }
+                })
         }
     }
 
@@ -586,9 +640,9 @@ class ChannelsRepositoryImpl : ChannelsRepository {
     }
 
     private fun createChannelListQuery(
-            config: ChannelListConfig,
-            query: String? = null,
-            params: SearchChannelParams,
+        config: ChannelListConfig,
+        query: String? = null,
+        params: SearchChannelParams,
     ): ChannelListQuery {
         return ChannelListQuery.Builder()
             .order(config.order)
